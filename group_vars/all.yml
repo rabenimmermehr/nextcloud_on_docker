@@ -33,12 +33,12 @@ nginx_resolver: '127.0.0.1'
 
 # use rclone to backup to a cloud storage, see https://rclone.org for more details
 # `set_modtime` is necessary since the remote dir is ntfs, and modtime can't be set
-restic_repo:     "rclone:backup-nextcloud:/mnt/external_drive/backups/nextcloud_backup"
-rclone_remote: |
-      [backup-nextcloud]
-      type = sftp
-      host = rabenimmermehr.hopto.org
-      user = ansible
-      port = 2222
-      key_file = /home/rabefabi/.ssh/id_rsa
-      set_modtime = false 
+#restic_repo:     "rclone:backup-nextcloud:/mnt/external_drive/backups/nextcloud_backup"
+#rclone_remote: |
+#      [backup-nextcloud]
+#      type =
+#      host = 
+#      user =
+#      port = 
+#      key_file = 
+#      set_modtime = false 

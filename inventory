@@ -2,7 +2,7 @@
 cloud.fabianrabe.com ansible_user=ansible 
 
 [nextcloud:vars]
-
+#force_nextcloud_config = true
 ansible_become=yes
 ansible_become_method=sudo 
 ansible_become_pass="{{ lookup('file', '{{ nextcloud_credential_store }}/sudo_password') }}" # Lookup the sudo password in the credential store
@@ -62,7 +62,7 @@ aws_s3_secret         = ''
 # aws_s3_use_path_style = 'true'
 
 # Install restic backup tool if backup_folder is not empty
-# restic_repo                 = ''              # e.g. /var/nc-backup
+restic_repo                 = "{{ lookup('file', '{{nextcloud_credential_store}}/restic_repo') }}"
 # crontab settings restic for restic
 backup_day                  = *
 backup_hour                 = 4
@@ -80,8 +80,8 @@ talk_install                = true
 adminer_enabled             = false
 
 # Set to true to install Portainer webgui for Docker.
-portainer_enabled           = false
+portainer_enabled           = true
 portainer_passwd            = ''              # If empty the playbook will generate a random password.
 
 # Uncomment 'traefik_api_user' to get access to your Traefik dashboard at https://nextcloud_server_fqdn/traefik .
-# traefik_api_user          = traefik
+traefik_api_user          = traefik

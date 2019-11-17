@@ -13,6 +13,14 @@
     restic_backup_secret: "{{ lookup('password', '{{ nextcloud_credential_store }}/restic_backup_secret chars=ascii_letters,digits length=32') }}"
   when: restic_backup_secret == ''
 
+- name: Configure SFTP host for restic backup
+  blockinfile:
+    path: /etc/ssh/ssh_config
+    block: "{{ restic_ssh_config }}"
+    backup: yes
+    insertafter: "# ssh_config(5) man page."
+  when: ('sftp' in restic_repo)
+
 - name: create restic backup directory
   file:
     name:  '{{ restic_repo }}'

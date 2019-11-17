@@ -72,6 +72,16 @@ nextcloud_app_config:
     state: enable
   - name:  files_pdfviewer
     state: enable
+  - name: calendar
+    state: enable
+  - name: mail
+    state: enable
+  - name: news
+    state: enable
+  - name: phonetrack
+    state: enable
+  - name: contacts
+    state: enable
 #  - name:  extract
 #    state: enable
 #  - name: files_versions_s3
