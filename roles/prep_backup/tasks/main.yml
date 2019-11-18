@@ -21,26 +21,28 @@
     insertafter: "# ssh_config(5) man page."
   when: ('sftp' in restic_repo)
 
-- name: create restic backup directory
-  file:
-    name:  '{{ restic_repo }}'
-    owner: 'root'
-    group: 'root'
-    mode:  '0700'
-    state: directory
-  when: ( 'rclone' not in restic_repo )
+# TODO ssh-keygen & ssh-copy-id, also trust fingerprint
+
+# This just creates a local directory?
+#- name: create restic backup directory
+#  file:
+#    name:  '{{ restic_repo }}'
+#    owner: 'root'
+#    group: 'root'
+#    mode:  '0700'
+#    state: directory
+#  when: ( 'rclone' not in restic_repo )
   
 - name: initialize repository
   command: '{{ restic_install_path }}/restic init'
   environment:
     RESTIC_REPOSITORY: "{{ restic_repo }}"
     RESTIC_PASSWORD:   "{{ restic_backup_secret }}"
-  no_log: true
   register: restic_init
-  changed_when: "'created restic backend' in restic_init.stdout"
-  failed_when:
-    - restic_init.rc != 0
-    - not ( 'config already initialized' in restic_init.stderr or 'config file already exists' in restic_init.stderr )
+#  changed_when: "'created restic backend' in restic_init.stdout"
+#  failed_when:
+#    - restic_init.rc != 0
+#    - not ( 'config already initialized' in restic_init.stderr or 'config file already exists' in restic_init.stderr )
 
 - name: create restic nextcloud backup script
   template:
